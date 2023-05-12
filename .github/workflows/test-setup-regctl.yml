@@ -1,5 +1,6 @@
-on: workflow_dispatch
-    [push]
+on: 
+    - workflow_dispatch
+    - [push]
 
 jobs:
   test-setup-regctl-job:
@@ -10,5 +11,6 @@ jobs:
       - id: build-from-source
         name: Build the regctl from sources
         uses: vookimedlo/setup-regctl@master
-      - run: echo "The Regctl version: ${{ steps.build-from-source.outputs.regctl-version }}"
+      - run: |
+            echo "The Regctl version: ${{ steps.build-from-source.outputs.regctl-version }}"
         shell: bash

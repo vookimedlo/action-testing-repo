@@ -1,0 +1,13 @@
+on: [push]
+
+jobs:
+  test-setup-regctl-job:
+    runs-on: ubuntu-latest
+    name: Testing the vookimedlo/setup-regctl action
+    steps:
+      - uses: actions/checkout@v3
+      - id: build-from-source
+        name: Build the regctl from sources
+        uses: vookimedlo/setup-regctl@master
+      - run: echo "The Regctl version: ${{ steps.build-from-source.outputs.regctl-version }}"
+        shell: bash

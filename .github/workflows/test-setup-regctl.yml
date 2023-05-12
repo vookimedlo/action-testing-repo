@@ -11,4 +11,6 @@ jobs:
         uses: vookimedlo/setup-regctl@master
       - run: |
             echo "The Regctl version: ${{ steps.build-from-source.outputs.regctl-version }}"
+            
+            regctl version
         shell: bash

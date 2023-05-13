@@ -52,13 +52,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
-        regctl: ['latest', 'v0.4.7']
     runs-on: ${{ matrix.os }}
     name: Testing the vookimedlo/setup-regctl action [no args]
     steps:
       - uses: actions/checkout@v3
       - id: build-from-source
-        name: Build the regctl from sources [${{ matrix.os }}, ${{ matrix.regctl }}]
+        name: Build the regctl from sources [${{ matrix.os }}]
         uses: vookimedlo/setup-regctl@master
       - shell: bash
         run: |

@@ -1,16 +1,67 @@
 on: [workflow_dispatch, push]
 
 jobs:
-  test-setup-regctl-job:
-    runs-on: ubuntu-latest
-    name: Testing the vookimedlo/setup-regctl action
+  test-setup-regctl-from-source-job:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        go: ['stable', '1.19.9']
+        regctl: ['latest', 'v0.4.7']
+    runs-on: ${{ matrix.os }}
+    name: Testing the vookimedlo/setup-regctl action [from source]
     steps:
       - uses: actions/checkout@v3
       - id: build-from-source
         name: Build the regctl from sources
         uses: vookimedlo/setup-regctl@master
-      - run: |
+        with:
+          go-version: ${{ matrix.go }}
+          regctl-version: ${{ matrix.regctl }}
+      - shell: bash
+        run: |
             echo "The Regctl version: ${{ steps.build-from-source.outputs.regctl-version }}"
             
             regctl version
-        shell: bash
+
+  test-setup-regctl-prebuilt-job:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        regctl: ['latest', 'v0.4.7']
+    runs-on: ${{ matrix.os }}
+    name: Testing the vookimedlo/setup-regctl action [prebuilt]
+    steps:
+      - uses: actions/checkout@v3
+      - id: build-from-source
+        name: Build the regctl from sources
+        uses: vookimedlo/setup-regctl@master
+        with:
+          regctl-prebuilt: 'true'
+          regctl-version: ${{ matrix.regctl }}
+      - shell: bash
+        run: |
+            echo "The Regctl version: ${{ steps.build-from-source.outputs.regctl-version }}"
+            
+            regctl version
+
+
+  test-setup-regctl-no-args-job:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        regctl: ['latest', 'v0.4.7']
+    runs-on: ${{ matrix.os }}
+    name: Testing the vookimedlo/setup-regctl action [no args]
+    steps:
+      - uses: actions/checkout@v3
+      - id: build-from-source
+        name: Build the regctl from sources
+        uses: vookimedlo/setup-regctl@master
+      - shell: bash
+        run: |
+            echo "The Regctl version: ${{ steps.build-from-source.outputs.regctl-version }}"
+            
+            regctl version

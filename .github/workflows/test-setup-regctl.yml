@@ -1,5 +1,7 @@
 on: [workflow_dispatch, push]
 
+name: Testing the setup-regctl action.
+
 jobs:
   test-setup-regctl-from-source-job:
     strategy:

@@ -5,7 +5,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
         go: ['stable', '1.19.9']
         regctl: ['latest', 'v0.4.7']
     runs-on: ${{ matrix.os }}
@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows, ubuntu-latest, macos-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
         regctl: ['latest', 'v0.4.7']
     runs-on: ${{ matrix.os }}
     name: Testing the vookimedlo/setup-regctl action [prebuilt]
@@ -51,7 +51,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     name: Testing the vookimedlo/setup-regctl action [no args]
     steps:

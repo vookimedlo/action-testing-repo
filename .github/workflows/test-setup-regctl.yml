@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: build-from-source
-        name: Build the regctl from sources
+        name: Build the regctl from sources [${{ matrix.os }}, ${{ matrix.go }}, ${{ matrix.regctl }}]
         uses: vookimedlo/setup-regctl@master
         with:
           go-version: ${{ matrix.go }}
@@ -34,15 +34,15 @@ jobs:
     name: Testing the vookimedlo/setup-regctl action [prebuilt]
     steps:
       - uses: actions/checkout@v3
-      - id: build-from-source
-        name: Build the regctl from sources
+      - id: install-prebuilt
+        name: Install the prebuilt regctl [${{ matrix.os }}, ${{ matrix.regctl }}]
         uses: vookimedlo/setup-regctl@master
         with:
           regctl-prebuilt: 'true'
           regctl-version: ${{ matrix.regctl }}
       - shell: bash
         run: |
-            echo "The Regctl version: ${{ steps.build-from-source.outputs.regctl-version }}"
+            echo "The Regctl version: ${{ steps.install-prebuilt.outputs.regctl-version }}"
             
             regctl version
 
@@ -58,7 +58,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: build-from-source
-        name: Build the regctl from sources
+        name: Build the regctl from sources [${{ matrix.os }}, ${{ matrix.regctl }}]
         uses: vookimedlo/setup-regctl@master
       - shell: bash
         run: |

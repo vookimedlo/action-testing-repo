@@ -20,6 +20,7 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
           regctl-version: ${{ matrix.regctl }}
+          regctl-prebuilt: 'false'
       - shell: bash
         run: |
             echo "The Regctl version: ${{ steps.build-from-source.outputs.regctl-version }}"
@@ -48,7 +49,6 @@ jobs:
             
             regctl version
 
-
   test-setup-regctl-no-args-job:
     strategy:
       fail-fast: false
@@ -58,8 +58,8 @@ jobs:
     name: Testing the vookimedlo/setup-regctl action [no args]
     steps:
       - uses: actions/checkout@v3
-      - id: build-from-source
-        name: Build the regctl from sources [${{ matrix.os }}]
+      - id: install-prebuilt
+        name: Install the prebuilt [${{ matrix.os }}]
         uses: vookimedlo/setup-regctl@master
       - shell: bash
         run: |
